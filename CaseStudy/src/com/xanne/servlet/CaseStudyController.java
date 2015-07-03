@@ -29,6 +29,7 @@ public class CaseStudyController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get the request handler
+		String nextPage;
 		BaseRH rh = getRequestHandler(request);
 		rh.handle(request, response);
 	}
@@ -48,6 +49,7 @@ public class CaseStudyController extends HttpServlet {
 			Object rhInstance = rhClass.newInstance();
 			if (rhInstance instanceof BaseRH) {
 				baseRH = (BaseRH) rhInstance;
+				
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
@@ -56,6 +58,7 @@ public class CaseStudyController extends HttpServlet {
 		} catch (IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
+		//return baseRH;
 		return baseRH;
 	}
 

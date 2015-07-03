@@ -15,6 +15,9 @@ public class EmployeeRH implements BaseRH {
 		if (cmd.equalsIgnoreCase("list")) {
 			doGetEmployeeList();
 		}
+		else {
+			
+		}
 	}
 
 	private void doGetEmployeeList() {
