@@ -1,12 +1,22 @@
 package com.xanne.cmd;
 
+import com.xanne.bo.EmployeeBO;
+import com.xanne.exception.CaseStudyException;
+
 public class EmployeeGetDetailCmd extends BaseGetCmd {
 
+	// input parameter
 	private Integer employeeId;
 	
+	// output parameter
+	private EmployeeBO employee;
+	
+	
 	@Override
-	public void performExecute() {
+	public void performExecute() throws CaseStudyException {
 		System.out.println("Retrieving employee id : " + employeeId);
+
+		employee = EmployeeBO.getById(1);
 	}
 
 	public Integer getEmployeeId() {
@@ -25,5 +35,9 @@ public class EmployeeGetDetailCmd extends BaseGetCmd {
 		}
 
 		return true;
+	}
+	
+	public EmployeeBO getEmployee() {
+		return employee;
 	}
 }

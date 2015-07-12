@@ -9,8 +9,11 @@ import com.xanne.util.CaseUtils;
 public class LoginRH implements BaseRH {
 
 	@Override
-	public void handle(HttpServletRequest request, HttpServletResponse response) {
+	public String handle(HttpServletRequest request, HttpServletResponse response) {
+		String nextPge = null;
 		String cmd = CaseUtils.trimStringNull(request.getParameter("cmd"));
+		
+		return nextPge;
 
 	}
 

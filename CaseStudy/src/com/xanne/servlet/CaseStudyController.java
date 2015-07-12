@@ -2,6 +2,7 @@ package com.xanne.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,9 +30,11 @@ public class CaseStudyController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get the request handler
-		String nextPage;
 		BaseRH rh = getRequestHandler(request);
-		rh.handle(request, response);
+		String nextPage = rh.handle(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher(nextPage);
+		rd.forward(request, response);
+		
 	}
 
 	private BaseRH getRequestHandler(HttpServletRequest request) {

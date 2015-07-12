@@ -8,7 +8,7 @@
 </head>
 <center>
 <body>
-<form action="/study/case?rh=employee" method="post">
+<form action="/study/case?rh=employee&cmd=list" method="post">
 <br><br>
 Welcome!
 <br><br>

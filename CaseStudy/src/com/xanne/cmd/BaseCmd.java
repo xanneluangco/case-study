@@ -1,8 +1,10 @@
 package com.xanne.cmd;
 
+import com.xanne.exception.CaseStudyException;
+
 public abstract class BaseCmd {
 
-	public void execute() {
+	public void execute() throws CaseStudyException {
 		if (isValidToExecute()) {
 			performExecute();
 		} else {
@@ -10,6 +12,6 @@ public abstract class BaseCmd {
 		}
 	}
 	
-	public abstract void performExecute();
+	public abstract void performExecute() throws CaseStudyException;
 	public abstract boolean isValidToExecute();
 }
