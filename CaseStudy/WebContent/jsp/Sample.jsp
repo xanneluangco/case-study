@@ -1,4 +1,5 @@
 <%@ page import="com.xanne.dto.EmployeeDTO" %>
+<%@ page import="java.util.List"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -11,12 +12,15 @@
 <body>
 
 <%
-EmployeeDTO employee = (EmployeeDTO) request.getAttribute("employeeDetail");
-%>
+//EmployeeDTO employee = (EmployeeDTO) request.getAttribute("employeeDetail");
+//List <EmployeeDTO> employee = (List <EmployeeDTO>) request.getAttribute("employeeDetail");
+ EmployeeDTO employees = (EmployeeDTO)request.getAttribute("employeeList");
+ %>
 SAMPLE JSP PAGE :)
-First Name : <%= employee.getFirstName() %>
-Middle Name : <%= employee.getMiddleName() %>
-Last Name : <%= employee.getLastName() %>
+First Name : <%= employees.getFirstName() %>
+Middle Name : <%= employees.getMiddleName() %>
+Last Name : <%= employees.getLastName() %>
+
 
 </body>
 </html>

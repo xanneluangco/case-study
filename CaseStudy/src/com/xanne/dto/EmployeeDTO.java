@@ -12,6 +12,8 @@ public class EmployeeDTO extends BaseDTO {
 	private Date birthday;
 	private String gender;
 	private String position;
+	
+	//getter and setter
 	public int getId() {
 		return id;
 	}
@@ -59,7 +61,5 @@ public class EmployeeDTO extends BaseDTO {
 	}
 	public void setPosition(String position) {
 		this.position = position;
-	}
-	
-	
+	}	
 }

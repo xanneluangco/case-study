@@ -1,15 +1,17 @@
 package com.xanne.rh.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xanne.bo.EmployeeBO;
 import com.xanne.cmd.EmployeeGetDetailCmd;
+import com.xanne.cmd.EmployeeGetListCmd;
 import com.xanne.dto.EmployeeDTO;
 import com.xanne.exception.CaseStudyException;
 import com.xanne.rh.BaseRH;
 import com.xanne.util.CaseUtils;
-import com.xanne.xform.BaseXForm;
 import com.xanne.xform.EmployeeXForm;
 
 public class EmployeeRH implements BaseRH {
@@ -21,7 +23,7 @@ public class EmployeeRH implements BaseRH {
 		String nextPage = null;
 		try {
 			if (cmd.equalsIgnoreCase("list")) {
-				//nextPage = doGetEmployeeList();
+				nextPage = doGetEmployeeList(request);
 			} else if (cmd.equalsIgnoreCase("detail")) {
 				nextPage = doGetEmployeeDetail(request);
 			}
@@ -66,18 +68,25 @@ public class EmployeeRH implements BaseRH {
 
 	}
 
-	private String doGetEmployeeList() throws CaseStudyException {
-		// EmployeeGetListCmd cmd = new EmployeeGetListCmd();
+	private String doGetEmployeeList(HttpServletRequest request) throws CaseStudyException {
 		String nextPage = null;
 		
 		// execute the command
-		EmployeeGetDetailCmd cmd = new EmployeeGetDetailCmd();
-		cmd.setEmployeeId(100);
+		EmployeeGetListCmd cmd = new EmployeeGetListCmd();
 		cmd.execute();
 		
 		// get the output
-		EmployeeBO employee = cmd.getEmployee();
-		
+		List <EmployeeBO> employees = (List<EmployeeBO>) cmd.getEmployees();
+		for (EmployeeBO employee : employees) {
+			// transform BO to DTO
+			EmployeeXForm xForm = (EmployeeXForm) employee.getXForm();
+			EmployeeDTO dto = new EmployeeDTO();
+			xForm.transformBoToDto(employee, dto);
+			
+			// save the DTO to request
+			
+		}
+		request.setAttribute("employeeList", employees);		
 		nextPage = "/jsp/Sample.jsp";
 		return nextPage;
 	}

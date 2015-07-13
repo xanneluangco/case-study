@@ -8,15 +8,20 @@ import com.xanne.exception.CaseStudyException;
 
 public class EmployeeGetListCmd extends BaseGetCmd {
 
+	List<EmployeeBO> employees;
+	
 	@Override
 	public void performExecute() throws CaseStudyException {
-		System.out.println("Performing employee get list cmd.");
 		EmployeeDAO dao = new EmployeeDAO();
-		List<EmployeeBO> empoyees = dao.getEmpoyees();
+		 employees = dao.getEmployees();
 	}
 
 	@Override
 	public boolean isValidToExecute() {
 		return true;
+	}
+	
+	public List<EmployeeBO> getEmployees() {
+		return employees;
 	}
 }

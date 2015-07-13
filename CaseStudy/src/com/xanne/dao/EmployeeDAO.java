@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.xanne.bo.EmployeeBO;
@@ -47,7 +48,44 @@ public class EmployeeDAO {
 		return emp;
 	}
 	
-	public List<EmployeeBO> getEmpoyees() {
-		return null;
+	public List<EmployeeBO> getEmployees() throws CaseStudyException {
+		Connection connection = null;
+		String sql = "SELECT id, last_name, first_name, middle_name, age, birth_date, gender, position, create_date, create_user, update_date, update_user FROM case_study.employee";
+		List <EmployeeBO> employees = null;
+		try {
+			connection = DBConnection.getInstance().getConnection();
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			ResultSet rst = pstmt.executeQuery();
+			employees = new LinkedList<EmployeeBO>();
+			while (rst.next()) {
+				EmployeeBO employee = new EmployeeBO();
+				employee.setFirstName(rst.getString("first_name"));
+				employee.setMiddleName(rst.getString("middle_name"));
+				employee.setLastName(rst.getString("last_name"));
+				employee.setAge(rst.getInt("age"));
+				employee.setBirthday(rst.getDate("birth_date"));
+				employee.setGender(rst.getString("gender"));
+				employee.setPosition(rst.getString("position"));
+				employee.setCreateDate(rst.getDate("create_date"));
+				employee.setCreateUser(rst.getString("create_user"));
+				employee.setUpdateDate(rst.getDate("update_date"));
+				employee.setUpdateUser(rst.getString("update_user"));
+				employees.add(employee);				
+			}
+		} catch (ConnectionException e) {
+			throw new CaseStudyException(e);
+		} catch (SQLException e) {
+			throw new CaseStudyException(e);
+		} catch (Throwable e) {
+			throw new CaseStudyException(e);
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CaseStudyException(e);
+			}
+
+		}
+		return employees;
 	}
 }
